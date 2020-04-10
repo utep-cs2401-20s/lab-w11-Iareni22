@@ -7,6 +7,13 @@ public class newSorting {
             int mid = A.length / 2;
             int[] left = new int[mid];
             int[] right = new int[A.length - mid];
+
+            for(int i = 0; i < left.length; i++){
+                left[i] = A[i];
+            }
+            for(int i = 0; i < right.length; i++){
+                right[i] = A[i + mid];
+            }
             newSorting(left, size);
             newSorting(right, size);
 
@@ -25,7 +32,6 @@ public class newSorting {
             else{
                 A[k] = R[j];
             }
-
         }
         while(i < L.length){
             A[k] = L[i];
@@ -40,17 +46,23 @@ public class newSorting {
         quickSort(A, 0, A.length - 1);
     }
 
-    private void quickSort(int[] nums, int start, int end){
-        int less = start;
+    private void quickSort(int[] A, int start, int end){
+        if(start < end){
+            int part = partition(A, start, end);
+            quickSort(A, start, part - 1);
+            quickSort(A, part + 1, end);
+        }
+
+    }
+
+    private int partition(int[] nums, int start, int end){
+        int less = start + 1;
         int more = end;
 
-        if(nums.length <= 1){
-            return;
-        }
-        int pivot = nums[0];
+        int pivot = nums[start];
 
-        while(less < more){
-            while(less <= end && nums[less] <= pivot){
+        while(less <= more){
+            while(less <= end && nums[less] < pivot){
                 less++;
             }
             while(more >= start && nums[more] > pivot){
@@ -60,14 +72,16 @@ public class newSorting {
                 int temp = nums[less];
                 nums[less] = nums[more];
                 nums[more] = temp;
+                less++;
+                more--;
             }
+
         }
-        int temp = nums[start - 1];
-        nums[start - 1] = nums[more];
+        int temp = pivot;
+        nums[start] = nums[more];
         nums[more] = temp;
 
-        quickSort(nums, start, more - 1);
-        quickSort(nums, less + 1, end);
+        return more;
     }
 
 }

@@ -79,9 +79,8 @@ public class newSorting {
             }
 
         }
-        int temp = pivot;
         nums[start] = nums[more];
-        nums[more] = temp;
+        nums[more] = pivot;
 
         return more;
     }

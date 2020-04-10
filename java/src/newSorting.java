@@ -8,12 +8,7 @@ public class newSorting {
             int[] left = new int[mid];
             int[] right = new int[A.length - mid];
 
-            for(int i = 0; i < left.length; i++){
-                left[i] = A[i];
-            }
-            for(int i = 0; i < right.length; i++){
-                right[i] = A[i + mid];
-            }
+            populate(A, left, right, mid);
             newSorting(left, size);
             newSorting(right, size);
 
@@ -28,16 +23,23 @@ public class newSorting {
         while(i < L.length && j < R.length){
             if(L[i] <= R[j]){
                 A[k] = L[i];
+                i++;
             }
             else{
                 A[k] = R[j];
+                j++;
             }
+            k++;
         }
         while(i < L.length){
             A[k] = L[i];
+            i++;
+            k++;
         }
         while(j < R.length){
             A[k] = R[j];
+            j++;
+            k++;
         }
 
     }
@@ -82,6 +84,15 @@ public class newSorting {
         nums[more] = temp;
 
         return more;
+    }
+
+    private void populate(int[] A, int[] left, int[] right, int mid){
+        for(int i = 0; i < left.length; i++){
+            left[i] = A[i];
+        }
+        for(int i = 0; i < right.length; i++){
+            right[i] = A[i + mid];
+        }
     }
 
 }
